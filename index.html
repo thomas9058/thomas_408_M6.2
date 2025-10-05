@@ -1,108 +1,72 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fancy letterheaded paper</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
 
-<head>
-  <meta charset="utf-8">
-  <title>Hello World!</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="shortcut icon" href="img/favicon.ico">
-</head>
+    <article class="letter">
+      <h1 class="brand">Awesome<br>Company</h1>
 
-<body>
-  <h1>HTML Rocks!</h1>
-  <p>
-    <button  onclick="helloWorld()">Prints Hello World to the Developer console</button>
-  </p>
-  <hr>
-  <form id="addForm">
-    <label for="num1">Number 1:</label>
-    <input type="number" id="num1" name="num1" required>
-    <br>
-    <label for="num2">Number 2:</label>
-    <input type="number" id="num2" name="num2" required>
-    <br>
-    <button type="submit">Add Numbers</button>
-  </form>
+      <main class="content grid-2x2">
+        <!-- Row 1 -->
+        <section class="cell tl">
+          <h2>Lorem Ipsum</h2>
+          <p><em>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</em></p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer dapibus, arcu in vulputate laoreet, odio augue fermentum neque, ut faucibus neque velit sed sapien.</p>
+        </section>
 
-  <label id="result">Result:</label>
+        <section class="cell tr">
+          <h3>Why do we use it?</h3>
+          <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+          <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
+        </section>
 
-  <hr>
+        <!-- Row 2 -->
+        <section class="cell bl">
+          <h3>Where does it come from?</h3>
+          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.</p>
+          <p>It has survived not only five centuries, but also the leap into electronic typesetting.</p>
+        </section>
 
-  <button id="jokeButton">Get a Random Joke</button>
-  <p id="joke"></p>
+        <section class="cell br">
+          <h3>Where can I get some?</h3>
+          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+          <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+        </section>
 
-  <hr>
-  <button id="jokeButtonTable">Get a  5 Random Jokes</button>
-  <table id="jokeTable"></table>
+        <!-- Radio group BELOW the bottom-right cell -->
+        <form id="choices" class="radio-form" onsubmit="return false;">
+          <fieldset>
+            <legend>Pick one:</legend>
+            <label><input type="radio" name="lipsum" value="paragraphs" checked> paragraphs</label><br>
+            <label><input type="radio" name="lipsum" value="sentences"> sentences</label><br>
+            <label><input type="radio" name="lipsum" value="lists"> lists</label>
+          </fieldset>
+          <button id="show-choice" type="button">Alert selection</button>
+        </form>
+      </main>
 
-  <script type="module" script="js/main.js">
-    import {helloWorld, add, fetchRandomJoke, fetch5RandomJokes} from './js/main.js';
+      <address>
+        <p>The Awesome Company</p>
+        <p>102-112 Frail Bend Bridge<br>
+        The Dwindlings<br>
+        Little Hornet<br>
+        HX3 9ZQ<br>
+        UK</p>
+      </address>
+    </article>
 
-    // This shows how to assign a function to the window object
-    // so that it can be called from the browser console
-    window.helloWorld = helloWorld;
-
-    // This shows how to add an event listener to a button in the HTML
-    // and call a function when the button is clicked
-    const form = document.getElementById('addForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const num1 = parseFloat(document.getElementById('num1').value);
-      const num2 = parseFloat(document.getElementById('num2').value);
-      try{
-        const result = add(num1, num2);
-        document.getElementById('result').textContent = `Result: ${result}`;
-      }catch(e){
-        console.error(e);
-        document.getElementById('result').textContent = `Error: ${e.message}`;
-      }
-
-    });
-
-    // this shows how to add an event listener to a button in the HTML
-    // that calls a function that fetches a random joke from an API
-    // and displays it on the page
-    const jokebtn = document.getElementById('jokeButton');
-    const jokeresult = document.getElementById('joke');
-    jokebtn.addEventListener('click', async () => {
-      try {
-        jokeresult.textContent = 'Loading...';
-        const joke = await fetchRandomJoke();
-        document.getElementById('joke').textContent = joke;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('joke').textContent = `Error: ${e.message}`;
-      }
-    });
-
-    // this shows how to add an event listener to a button in the HTML
-    // that calls a function that fetches 5 random jokes from an API
-    // and displays them in a table on the page
-    const jokeTableBtn = document.getElementById('jokeButtonTable');
-    const jokeTable = document.getElementById('jokeTable');
-    jokeTableBtn.addEventListener('click', async () => {
-      try {
-        jokeTable.textContent = 'Loading...';
-        const joke = await fetch5RandomJokes();
-        jokeTable.innerHTML = `
-              <thead>
-              <tr>
-                <th>Joke</th>
-              </tr>
-              </thead>
-              <tbody>
-              ${joke.map(j => `<tr><td>${j}</td></tr>`).join('')}
-              </tbody>
-            `;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('joke').textContent = `Error: ${e.message}`;
-      }
-    });
-  </script>
-
-</body>
-
+    <script>
+      document.getElementById('show-choice').addEventListener('click', function () {
+        const selected = document.querySelector('input[name="lipsum"]:checked');
+        const label = selected.closest('label');
+        const text = label ? label.textContent.trim() : selected.value;
+        alert(text);
+      });
+    </script>
+  </body>
 </html>
