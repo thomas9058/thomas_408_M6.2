@@ -1,82 +1,51 @@
-* {
-  box-sizing: border-box;
+/* Dauphin heading font */
+@font-face {
+  font-family: "Dauphin";
+  src:
+    local("Dauphin"),
+    url("../fonts/Dauphin.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-html {
-  font-family: sans-serif;
+* { 
+  box-sizing: border-box; 
+}
+
+html { 
+  font-family: Georgia, serif; 
 }
 
 body {
   margin: 0;
-  background: #ccc;
+  background: #fff;
 }
 
-article {
-  width: 210mm;
-  height: 297mm;
-  margin: 20px auto;
-  position: relative;
-}
-
-address {
-  position: absolute;
-  bottom: 8mm;
-  right: 20mm;
-}
-
-h1 {
-  position: absolute;
-  top: 12mm;
-  left: 20mm;
-  width: 128px;
-  height: 128px;
-  font-size: 20px;
-  letter-spacing: 1px;
-  text-align: center;
-  padding: 44px 0;
-  color: white;
-  text-shadow: 1px 1px 1px black;
-}
-
-/* Your CSS below here */
-* {
-  box-sizing: border-box;
-}
-
-html { font-family: Georgia, serif; }
-
-body {
-  margin: 0;
-  background: #cfcfcf;
-}
-
-/* The A4 letter canvas */
+/* The letter canvas */
 article.letter {
   width: 210mm;
   height: 297mm;
   margin: 20px auto;
   position: relative;
-  background-color: #fff;            /* white letter background */
-  border-top: 1mm solid #a40000;     /* themed borders */
+  background-color: #fff;
+  border-top: 1mm solid #a40000;
   border-bottom: 1mm solid #a40000;
 
-  /* Fallback for very old browsers: only the top banner */
-  background: #fff url("img/top-image.png") top center / 100% auto no-repeat;
+  /* Fallback: just the top image */
+  background: #fff url("../img/top-image.png") top center / 100% auto no-repeat;
 
-  /* Enhanced: multiple layers + semi-transparent gradient texture */
-  background-image:
-    linear-gradient(to bottom,
+  /* gradient overlay */
+  background:
+    linear-gradient(
+      to bottom,
       rgba(0,0,0,0.28) 0%,
       rgba(0,0,0,0.00) 20%,
       rgba(0,0,0,0.00) 80%,
       rgba(0,0,0,0.28) 100%
     ),
-    url("img/top-image.png"),
-    url("img/bottom-image.png");
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: top center, top center, bottom center;
-  background-size: 100% auto, 100% auto, 100% auto;
-  background-attachment: scroll, fixed, fixed;
+    url("../img/top-image.png") top center / 100% auto no-repeat,
+    url("../img/bottom-image.png") bottom center / 100% auto no-repeat;
 }
 
 /* Logo heading */
@@ -86,23 +55,18 @@ h1.brand {
   left: 20mm;
   width: 128px;
   height: 128px;
-  font-family: "Trebuchet MS", system-ui, sans-serif;
   font-weight: 800;
   font-size: 20px;
-  line-height: 1.1;
-  letter-spacing: 1px;
+  line-height: 1.05;
+  letter-spacing: 0;
   text-align: center;
   padding: 44px 0;
   color: #fff;
   text-shadow: 1px 1px 1px rgba(0,0,0,.6);
 
-  background: url("img/logo.png") center/contain no-repeat;
+  background: url("../img/logo.png") center/contain no-repeat;
   border-radius: 50%;
-
-  /* Option 1: CSS filter-based drop shadow that follows the round logo */
   /* filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); */
-
-  /* Option 2 (active): cross-browser friendly circular shadow via box-shadow */
   box-shadow: 0 6px 10px rgba(0,0,0,.35);
 }
 
@@ -115,27 +79,61 @@ address {
   line-height: 1.5;
 }
 
-/* Two-column body */
+/* Content area within margins */
 main.content {
   position: absolute;
   left: 20mm;
   right: 20mm;
   top: 60mm;
-  bottom: 40mm;
+  bottom: 60mm;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr; /* two-column layout */
+  grid-auto-rows: min-content;
   gap: 18px;
   color: #222;
 }
 
-main.content h2, main.content h3 {
-  font-family: "Georgia", serif;
-  margin: 0.5em 0 0.25em;
+/* Intro header */
+.content.two-col .intro {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 6px;
 }
 
-main.content p { margin: 0.25em 0 0.8em; }
+.content.two-col .intro-title {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+  font-family: "Dauphin", Georgia, "Times New Roman", serif;
+}
 
-/* Radio + button area */
+.content.two-col .intro-quote { margin: 2px 0; }
+
+.content.two-col .intro-sep {
+  margin: 10px auto 14px;
+  width: 80%;
+  border: 0;
+  border-top: 1px solid #d0d0d0;
+}
+
+/* Column placement */
+.content.two-col .main { grid-column: 1; min-height: 0; }
+.content.two-col .main2 { grid-column: 2; min-height: 0; }
+
+main.content .main h2,
+main.content .main h3,
+main.content .main2 h3 {
+  font-family: "Dauphin", Georgia, "Times New Roman", serif;
+  margin: 0.5em 0 0.25em;
+  letter-spacing: 0;
+}
+
+main.content p {
+  margin: 0.25em 0 0.8em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
 .radio-form {
   margin: 12px 0 16px;
   padding: 10px 12px;
@@ -156,16 +154,11 @@ main.content p { margin: 0.25em 0 0.8em; }
 
 .radio-form button:hover { opacity: .95; }
 
-/* Print-friendly tweaks */
-@media print {
-  body { background: #fff; }
-  article.letter { margin: 0; }
+.letter main.content {
+  font-size: 0.7rem;
+  line-height: 1.3;
+  gap: 12px;
 }
 
-.content.grid-2x2 .radio-form {
-  grid-column: 2;
-  align-self: start;
-  justify-self: start;
-}
-
-body { background-image: url("img/top-image.png"); background-repeat: no-repeat; background-position: center top; }
+.letter main.content .main h3,
+.letter main.content .main2 h3 { font-size: 1.1em; }
